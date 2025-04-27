@@ -12,6 +12,7 @@ Below is a list of services configured in this repository. Each directory contai
 -   [Nginx Proxy Manager + DDClient](./nginx-ddclient/README.md): Easy-to-use Nginx proxy manager with dynamic DNS updating via DDClient.
 -   [Ollama + Open WebUI](./ollama-openwebui/README.md): Run large language models locally with Ollama and interact with them through Open WebUI.
 -   [Open Source Monitoring](./opensource-monitoring/README.md): Monitoring stack including Prometheus, Grafana, Node Exporter, and cAdvisor.
+-   [Taskwise](./taskwise/README.md): A self-hosted AI-powered to-do list
 
 ## Prerequisites
 
