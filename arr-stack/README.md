@@ -36,19 +36,61 @@ This stack uses a custom Docker network (`servarrnetwork`) with static IP addres
 
 1. Docker and Docker Compose installed
 2. A VPN subscription (ProtonVPN, Mullvad, etc.)
-3. A dedicated `/data` directory for media storage
+3. A dedicated `/data` directory for all media and downloads (see setup below)
 4. User permissions set correctly (PUID/PGID)
 
 ## Setup Instructions
 
-### 1. Prepare Your Data Directory
+### 1. Prepare Data Directory Structure
 
-Create a structured data directory:
+All services are configured to use a single `/data` directory structure. This approach simplifies permissions and path management across all containers. You have two options:
+
+#### Option 1: Local Directory (Recommended for Single Machine Setup)
 
 ```bash
+# Create the main data directory
+sudo mkdir -p /data
+
+# Set ownership to your user (replace 1000:1000 with your PUID:PGID if different)
+sudo chown -R 1000:1000 /data
+
+# Create the directory structure
 mkdir -p /data/{books,movies,music,shows,youtube}
 mkdir -p /data/downloads/qbittorrent/{completed,incomplete,torrents}
 mkdir -p /data/downloads/nzbget/{completed,intermediate,nzb,queue,tmp}
+```
+
+#### Option 2: NFS Mount (For Network Storage)
+
+If you're using a separate NAS or file server, mount your NFS share to `/data`:
+
+```bash
+# Replace <nfs-server-ip> and </path/on/nfs> with your NFS server details (eg. 192.168.1.100:/mnt/data-vdev/jellyfin)
+# Replace /mnt/nfs/jellyfin with your desired mount point
+sudo nano /etc/fstab
+<nfs-server-ip>:/path/on/nfs /mnt/nfs/jellyfin nfs defaults 0 0
+
+# Optionally, you can add smb mounts to fstab file
+# Replace <smb-server-ip> and </path/on/smb> with your SMB server details (eg. //192.168.1.132/JellyfinData)
+//<smb-server-ip>/JellyfinData /path/on/smb cifs credentials=/etc/smb_credentials,uid=1000,gid=1000,iocharset=utf8,nofail 0 0
+
+# Create the credentials file
+# Replace your-username and your-password with smb user credentials
+sudo nano /etc/smb_credentials
+username=your-username
+password=your-password
+
+# Create the nfs mount point and mount (for smb, use /mnt/smb/jellyfin for example)
+sudo mkdir -p /mnt/nfs/jellyfin
+sudo mount -a
+
+# Create the directory structure (if not already existing on the NFS share)
+mkdir -p /mnt/nfs/jellyfin/{books,movies,music,shows,youtube}
+mkdir -p /mnt/nfs/jellyfin/downloads/qbittorrent/{completed,incomplete,torrents}
+mkdir -p /mnt/nfs/jellyfin/downloads/nzbget/{completed,intermediate,nzb,queue,tmp}
+
+# Set correct ownership (adjust PUID/PGID as needed)
+sudo chown -R 1000:1000 /mnt/nfs/jellyfin
 ```
 
 ### 2. Configure VPN Settings
@@ -91,10 +133,17 @@ docker compose up -d
 - Default login: username `admin`, password will be shown in logs the first time
 - After login, go to Settings > WebUI to change credentials
 - Set network interface to `tun0` in Advanced settings to prevent VPN timeout issues
+- In Settings > Downloads, set Default Save Path to `/data/downloads/qbittorrent/completed`
 
 ### NZBGet
 
 - Configure your Usenet provider details in Settings
+- Under "PATHS" set:
+  - `MainDir=/data/downloads/nzbget`
+  - `DestDir=${MainDir}/completed`
+  - `InterDir=${MainDir}/intermediate`
+  - `QueueDir=${MainDir}/queue`
+  - `TempDir=${MainDir}/tmp`
 - Under "INCOMING NZBS", set "AppendCategoryDir" to "No" to prevent path mapping issues with Sonarr/Radarr
 
 ### Prowlarr
@@ -147,17 +196,6 @@ If Gluetun is using excessive RAM, add this environment variable:
 ### NZBGet "Directory Does Not Appear to Exist" Error
 
 In NZBGet settings, under "INCOMING NZBS", set "AppendCategoryDir" to "No".
-
-## Maintenance
-
-### Updating Containers
-
-To update all containers to their latest versions:
-
-```bash
-docker compose pull
-docker compose up -d
-```
 
 ### Backing Up Configurations
 

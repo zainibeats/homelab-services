@@ -47,14 +47,11 @@ services:
     environment:
       - PUID=1000                            # Adjust to match host user ID
       - PGID=1000                            # Adjust to match host group ID
-      - TZ=<YOUR_TIME_ZONE>		     # Set your local timezone (e.g., America/Los_Angeles)
+      - TZ=<YOUR_TIME_ZONE>		   # Set your local timezone (e.g., America/Los_Angeles)
       - WEBUI_PORT=8123                      # Internal web UI port
     volumes:
       - ./qbittorrent:/config                # Holds settings and torrent data
-      - /data:/data                          # Single shared data directory
-      # Option: mount individual folders instead of one shared volume:
-      # - /path/to/downloads:/downloads      # Directory for completed downloads
-      # - /path/to/torrents:/torrents        # Directory for .torrent files
+      - /mnt/nfs/jellyfin:/data
     depends_on:
       gluetun:
         condition: service_healthy
@@ -82,7 +79,6 @@ services:
   nzbget:
     image: lscr.io/linuxserver/nzbget:latest
     container_name: nzbget
-    restart: unless-stopped
     environment:
       - PUID=1000
       - PGID=1000
@@ -92,27 +88,25 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./nzbget:/config                    # NZBGet configuration and queue
-      - /data:/data                         # Single shared data directory
-      # Option: split directories for more control:
-      # - /path/to/nzb-downloads:/downloads
-      # - /path/to/nzb-incomplete:/incomplete
+      - /mnt/nfs/jellyfin:/data
     depends_on:
       gluetun:
         condition: service_healthy
         restart: true
+    restart: unless-stopped
     network_mode: service:gluetun
 
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
     container_name: prowlarr
-    restart: unless-stopped
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=<YOUR_TIME_ZONE>		   # Set your local timezone (e.g., America/Los_Angeles)
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - ./prowlarr:/config                 # Prowlarr settings and indexers
+      - ./prowlarr:/config
+    restart: unless-stopped
     depends_on:
       gluetun:
         condition: service_healthy
@@ -130,9 +124,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./sonarr:/config                   # Sonarr database and settings
-      - /data:/data                        # Single shared data directory
-      # Option: separate TV show storage:
-      # - /path/to/tv-series:/tv
+      - /mnt/nfs/jellyfin:/data
     ports:
       - 8989:8989                         # Sonarr Web UI
     networks:
@@ -150,9 +142,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./radarr:/config                   # Radarr database and settings
-      - /data:/data                        # Single shared data directory
-      # Option: dedicate movie folder:
-      # - /path/to/movies:/movies
+      - /mnt/nfs/jellyfin:/data
     ports:
       - 7878:7878                         # Radarr Web UI
     networks:
@@ -170,9 +160,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./lidarr:/config                  # Lidarr database and settings
-      - /data:/data                       # Single shared data directory
-      # Option: music folder separation:
-      # - /path/to/music:/music
+      - /mnt/nfs/jellyfin:/data
     ports:
       - 8686:8686                         # Lidarr Web UI
     networks:
@@ -190,9 +178,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./bazarr:/config                  # Bazarr settings and subtitle data
-      - /data:/data                       # Single shared data directory
-      # Option: separate subtitle folder:
-      # - /path/to/subtitles:/subtitles
+      - /mnt/nfs/jellyfin:/data
     ports:
       - 6767:6767                         # Bazarr Web UI
     networks:
