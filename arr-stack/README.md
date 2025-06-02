@@ -65,17 +65,14 @@ mkdir -p /data/downloads/nzbget/{completed,intermediate,nzb,queue,tmp}
 If you're using a separate NAS or file server, mount your NFS share to `/data`:
 
 ```bash
-# Replace <nfs-server-ip> and </path/on/nfs> with your NFS server details (eg. 192.168.1.100:/mnt/data-vdev/jellyfin)
-# Replace /mnt/nfs/jellyfin with your desired mount point
+# Replace <nfs-server-ip> and </path/on/nfs> with your NFS server details
+# Example: 192.168.1.100:/mnt/pool/JellyfinData /mnt/nfs/jellyfin nfs defaults 0 0
 sudo nano /etc/fstab
 <nfs-server-ip>:/path/on/nfs /mnt/nfs/jellyfin nfs defaults 0 0
 
 # Optionally, you can add smb mounts to fstab file
-# Replace <smb-server-ip> and </path/on/smb> with your SMB server details (eg. //192.168.1.132/JellyfinData)
-//<smb-server-ip>/JellyfinData /path/on/smb cifs credentials=/etc/smb_credentials,uid=1000,gid=1000,iocharset=utf8,nofail 0 0
-
-# Create the credentials file
-# Replace your-username and your-password with smb user credentials
+# Example: //192.168.1.100/JellyfinData /mnt/truenas_data/jellyfin_data cifs credentials=/etc/smb_credentials,uid=1000,gid=1000,iocharset=utf8,nofail 0 0
+# Create the credentials file and replace your-username and your-password with smb user credentials
 sudo nano /etc/smb_credentials
 username=your-username
 password=your-password
