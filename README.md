@@ -6,13 +6,25 @@ This repository contains Docker Compose configurations for various self-hosted s
 
 Below is a list of services configured in this repository. Each directory contains the `docker-compose.yml` file and a specific `README.md` with setup instructions.
 
--   [Arr Stack](./arr-stack/README.md): A collection of services for scanning and managing media.
--   [Homarr](./homarr/README.md): A simple, modern dashboard for your server.
--   [Jellyseerr](./jellyseerr/README.md): A request management and media discovery tool for the Jellyfin/Emby ecosystem.
--   [Nextcloud](./nextcloud/README.md): A suite of client-server software for creating and using file hosting services.
--   [Nginx Proxy Manager + DDClient](./nginx-ddclient/README.md): Easy-to-use Nginx proxy manager with dynamic DNS updating via DDClient.
--   [Ollama + Open WebUI](./ollama-openwebui/README.md): Run large language models locally with Ollama and interact with them through Open WebUI.
--   [Open Source Monitoring](./opensource-monitoring/README.md): Monitoring stack including Prometheus, Grafana, Node Exporter, and cAdvisor.
+- **Arr Stack** ([docs](./arr-stack/README.md)): A collection of services for media management including Sonarr, Radarr, Lidarr, and more. Uses NFS for media storage with a unified `/data` directory structure.
+- **Nextcloud** ([docs](./nextcloud/README.md)): Self-hosted file sync and share platform with NFS storage integration.
+- **Jellyseerr** ([docs](./jellyseerr/README.md)): A request management and media discovery tool for the Jellyfin/Emby ecosystem.
+- **Nginx Proxy Manager + DDClient** ([docs](./nginx-ddclient/README.md)): Easy-to-use Nginx proxy manager with dynamic DNS updating via DDClient.
+- **Ollama + Open WebUI** ([docs](./ollama-openwebui/README.md)): Run large language models locally with Ollama and interact with them through Open WebUI.
+- **Open Source Monitoring** ([docs](./opensource-monitoring/README.md)): Monitoring stack including Prometheus, Grafana, Node Exporter, and cAdvisor.
+
+## Storage Configuration
+
+This homelab is designed with network storage in mind:
+
+- **NFS Shares**:
+  - Media: `/mnt/nfs/jellyfin` (for Arr Stack)
+  - Nextcloud: `/mnt/nfs/family/nextcloud`
+  - Configured in `/etc/fstab` for automatic mounting
+
+- **Local Storage Fallback**:
+  - Services can be configured to use local storage if NFS is not available
+  - See individual service READMEs for configuration details
 
 ## Prerequisites
 
@@ -21,20 +33,13 @@ Below is a list of services configured in this repository. Each directory contai
 
 ## Automatic Updates (Optional)
 
-To automatically update your running Docker containers to the latest image, consider using [Watchtower](https://containrrr.dev/watchtower/). You can add it as another service to your `docker-compose.yml` files.
+To automatically update your running Docker containers to the latest image, consider using [Watchtower](https://containrrr.dev/watchtower/).
 
-A basic Watchtower service definition might look like this:
+A basic Watchtower container might look like this:
 
-```yaml
-services:
-  watchtower:
-    image: containrrr/watchtower
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    restart: unless-stopped
-    command: --cleanup --interval 86400 # Check daily and remove old images
-  
-  # ... your other services
+```bash
+docker run -d \
+--name watchtower \
+-v /var/run/docker.sock:/var/run/docker.sock \
+containrrr/watchtower
 ```
-
-Remember to adjust the command flags (like `--interval`) according to your needs.
