@@ -35,3 +35,10 @@ scrape_configs:
       - targets: ['<RPI_IP>:9100']
         labels:
           instance: 'raspberry-pi-5'
+
+  # --- TrueNAS Metrics ---
+  - job_name: 'truenas-node'
+    static_configs:
+      - targets: ['<TRUENAS_IP>:9100']
+        labels:
+          instance: 'truenas'

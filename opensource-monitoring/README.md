@@ -32,11 +32,39 @@ This directory contains a Docker Compose setup for a basic monitoring stack usin
 ## Setup
 
 1.  Ensure all configuration steps above (especially creating directories and copying the `prometheus.yml` file contents) are completed.
-2.  Navigate to the `opensource-monitoring` directory:
+2. Run node-exporter container on machines to be monitored. 
+```bash
+# docker-compose.yml example
+networks:
+  monitoring:
+    driver: bridge
+volumes:
+  prometheus_data: {}
+services:
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: node-exporter
+    restart: unless-stopped
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    ports:
+      - 9100:9100
+    networks:
+      - monitoring
+```
+
+3.  Navigate to the `opensource-monitoring` directory:
     ```bash
     cd opensource-monitoring
     ```
-3.  Start the services using Docker Compose:
+4.  Start the services using Docker Compose:
     ```bash
     docker-compose up -d
     ```
