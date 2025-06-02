@@ -24,7 +24,7 @@ services:
       - db
     volumes:
       - nextcloud:/var/www/html
-      # Data directory mounted to /mnt/nfs/family/nextcloud
+      # NFS Data directory mounted to /mnt/nfs/family/nextcloud
       - /mnt/nfs/family/nextcloud:/var/www/html/data
     environment:
       - PUID=1005
