@@ -21,6 +21,7 @@ sudo mkdir -p /mnt/truenas_data/immich/{library,postgres}
 # Add to /etc/fstab (replace <smb-server-ip> and </path/on/smb> with your details)
 # Example: //192.168.1.100/ImmichData /mnt/truenas_data/immich cifs credentials=/etc/smb_credentials,uid=1000,gid=1000,iocharset=utf8,nofail 0 0
 sudo nano /etc/fstab
+<smb-server-ip>:<path/on/smb> /mnt/smb/immich cifs credentials=/etc/smb_credentials,uid=1000,gid=1000,iocharset=utf8,nofail 0 0
 
 # Mount the SMB share
 sudo mount -a
