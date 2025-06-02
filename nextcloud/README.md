@@ -5,17 +5,18 @@ Nextcloud is a suite of client-server software for creating and using file hosti
 ## Prerequisites
 
 1. Docker and Docker Compose installed
-2. NFS share mounted at `/mnt/nfs/family/nextcloud`
+2. NFS share mounted at `/mnt/nfs/family`
 3. Proper permissions set on the NFS share (owned by UID 1005:GID 1005)
 
 ## Configuration
 
 ### 1. NFS Storage Setup
 
-Ensure your NFS share is properly mounted at `/mnt/nfs/family/nextcloud` with the following steps:
+Ensure your NFS share is properly mounted at `/mnt/nfs/family` with the following steps:
 
 ```bash
-# Create the mount point
+# Create the mount point and nextcloud directory
+sudo mkdir -p /mnt/nfs/family
 sudo mkdir -p /mnt/nfs/family/nextcloud
 
 # Add to /etc/fstab (replace <nfs-server-ip> and </path/on/nfs> with your details)
