@@ -21,6 +21,7 @@ sudo mkdir -p /mnt/nfs/family/nextcloud
 # Add to /etc/fstab (replace <nfs-server-ip> and </path/on/nfs> with your details)
 # Example: 192.168.1.100:/mnt/pool/nextcloud /mnt/nfs/family/nextcloud nfs defaults 0 0
 sudo nano /etc/fstab
+<nfs-server-ip>:<path/on/nfs> /mnt/nfs/family/nextcloud nfs defaults 0 0
 
 # Mount the NFS share
 sudo mount -a
