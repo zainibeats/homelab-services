@@ -12,6 +12,8 @@ Below is a list of services configured in this repository. Each directory contai
 - **Nginx Proxy Manager + DDClient** ([docs](./nginx-ddclient/README.md)): Easy-to-use Nginx proxy manager with dynamic DNS updating via DDClient.
 - **Ollama + Open WebUI** ([docs](./ollama-openwebui/README.md)): Run large language models locally with Ollama and interact with them through Open WebUI.
 - **Open Source Monitoring** ([docs](./opensource-monitoring/README.md)): Monitoring stack including Prometheus, Grafana, Node Exporter, and cAdvisor.
+- **Immich** ([docs](./immich/README.md)): Self-hosted photo and video management platform.
+- **Vaultwarden** ([docs](./vaultwarden/README.md)): Self-hosted password manager. Compatible with the official [Bitwarden](https://bitwarden.com/) app.
 
 ## Storage Configuration
 
