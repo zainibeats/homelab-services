@@ -25,7 +25,7 @@ This homelab is designed with network storage in mind:
   - Nextcloud: `/mnt/nfs/family/nextcloud`
   - Configured in `/etc/fstab` for automatic mounting
   
-- **SMB Share**:
+- **SMB Shares**:
   - Immich: `/mnt/truenas_data/immich`
   - Jellyfin: `/mnt/truenas_data/jellyfin`
 
