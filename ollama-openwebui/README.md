@@ -13,19 +13,6 @@ This setup allows you to run large language models (LLMs) locally using Ollama a
 2.  **Port Mapping**: Open WebUI is mapped to port `3000` on the host by default (`3000:8080`). You can change the host port if needed.
 3.  **WebUI Secret Key (Optional)**: For production environments, it's recommended to set the `WEBUI_SECRET_KEY` environment variable for the `open-webui` service to a secure, random string.
 
-## Setup
-
-1.  Navigate to the `ollama-openwebui` directory:
-    ```bash
-    cd ollama-openwebui
-    ```
-2.  Start the services using Docker Compose:
-    ```bash
-    docker-compose up -d
-    ```
-
-Open WebUI should now be accessible at `http://<your-server-ip>:3000`.
-
 ## Usage
 
 1.  Access Open WebUI in your browser.

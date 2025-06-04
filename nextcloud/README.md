@@ -4,9 +4,8 @@ Nextcloud is a suite of client-server software for creating and using file hosti
 
 ## Prerequisites
 
-1. Docker and Docker Compose installed
-2. NFS share mounted at `/mnt/nfs/family`
-3. Proper permissions set on the NFS share (owned by UID 1005:GID 1005)
+1. NFS share mounted at `/mnt/nfs/family`
+2. Proper permissions set on the NFS share (owned by UID 1005:GID 1005)
 
 ## Configuration
 

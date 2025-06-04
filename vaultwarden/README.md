@@ -4,9 +4,8 @@ Vaultwarden is an unofficial, lightweight implementation of the Bitwarden server
 
 ## Prerequisites
 
-1. Docker and Docker Compose installed
-2. NFS share for persistent data `/mnt/nfs/encrypted`
-3. Proper permissions set on the NFS share (owned by the container user, typically UID 1000)
+1. NFS share for persistent data `/mnt/nfs/encrypted`
+2. Proper permissions set on the NFS share (owned by the container user, typically UID 1000)
 
 ## Configuration
 

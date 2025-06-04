@@ -4,9 +4,8 @@ Immich is a high-performance self-hosted photo and video backup solution that pr
 
 ## Prerequisites
 
-1. Docker and Docker Compose installed
-2. SMB share mounted at `/mnt/truenas_data/immich`
-3. Proper permissions set on the SMB share (owned by the container user, typically UID 1000)
+1. SMB share mounted at `/mnt/truenas_data/immich`
+2. Proper permissions set on the SMB share (owned by the container user, typically UID 1000)
 
 ## Configuration
 
