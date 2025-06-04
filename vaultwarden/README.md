@@ -30,18 +30,6 @@ sudo mount -a
 sudo chown -R 1000:1000 /mnt/nfs/encrypted/vaultwarden
 ```
 
-## Setup
-
-1. Start the Vaultwarden service:
-
-   ```bash
-   docker compose up -d
-   ```
-
-2. Access the web interface at `http://<your-server-ip>:8088`
-
-3. Create an account and start using Vaultwarden
-
 ## Data Storage
 
 Vaultwarden stores all its data in the following location:

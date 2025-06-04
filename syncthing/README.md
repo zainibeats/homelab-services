@@ -9,22 +9,6 @@
    - Update the volume paths to point to your desired storage location
    - Adjust `PUID` and `PGID` to match your system's user and group IDs
 
-## Setup
-
-1. Navigate to the syncthing directory:
-
-   ```bash
-   cd syncthing
-   ```
-
-2. Start the service using Docker Compose:
-
-   ```bash
-   docker-compose up -d
-   ```
-
-3. Access the Syncthing web interface at `http://<your-server-ip>:8384`
-
 ## Volumes
 
 - `/var/syncthing` - Contains all Syncthing data and configuration
