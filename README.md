@@ -1,6 +1,6 @@
 # homelab-services
 
-This repository contains Docker Compose configurations for various self-hosted services used in my homelab. The infrastructure is distributed across multiple dedicated machines for optimal performance and isolation:
+This repository contains Docker Compose configurations for various self-hosted services used in my first homelab. The infrastructure is distributed across multiple dedicated machines for isolation (and lack of resources):
 
 ## 🖥️ Infrastructure Overview
 
