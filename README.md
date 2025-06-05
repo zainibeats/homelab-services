@@ -8,7 +8,7 @@ This repository contains Docker Compose configurations for various self-hosted s
 |--------|---------|----|--------------|
 | **TrueNAS Server** | Centralized storage and backups | TrueNAS Scale | ZFS storage, SMB/NFS shares |
 | **Ubuntu Server** | Primary application hosting | Ubuntu Server 22.04 LTS | Docker containers, application services |
-| **Raspberry Pi** | Network and home automation | Raspberry Pi OS Lite | Pi-Hole, Home Assistant, Taskwise |
+| **Raspberry Pi** | Network and home automation | Raspberry Pi OS Lite | Pi-Hole, Home Assistant, WG-Easy, [Taskwise](https://github.com/zainibeats/taskwise) |
 | **Debian Server** | Network services and monitoring | Debian 12 (headless) | Nginx Proxy Manager, DDClient, Grafana, Prometheus |
 
 ## Services
@@ -26,6 +26,7 @@ Below is a list of services configured in this repository. Each directory contai
 - **Open Source Monitoring** ([docs](./opensource-monitoring/README.md)): Monitoring stack including Prometheus, Grafana, Node Exporter, and cAdvisor.
 - **Syncthing** ([docs](./syncthing/README.md)): Continuous file synchronization program that synchronizes files between two or more computers in real time.
 - **Vaultwarden** ([docs](./vaultwarden/README.md)): Self-hosted password manager. Compatible with the official [Bitwarden](https://bitwarden.com/) app.
+- **WG-Easy** ([docs](./wg-easy/README.md)): Easy-to-use Wireguard VPN with a web interface for remote access to the homelab.
 
 ## Storage Configuration
 
