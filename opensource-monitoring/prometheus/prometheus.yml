@@ -2,8 +2,7 @@ global:
   scrape_interval: 1m
 
 scrape_configs:
-
-  # --- Job for Prometheus itself ---
+  # Job for Prometheus itself
   - job_name: "prometheus"
     scrape_interval: 1m
     static_configs:
@@ -12,33 +11,40 @@ scrape_configs:
   # --- Debian Host Metrics ---
   - job_name: "node"
     static_configs:
-    - targets: ["<DEBIAN_IP>:9100"]
+    - targets: ["node-exporter:9100"]
 
   - job_name: "cadvisor"
     scrape_interval: 5s
     static_configs:
-    - targets: ["<DEBIAN_IP>:8080"]
+    - targets: ["cadvisor:8080"]
 
   # --- Ubuntu Server Metrics ---
   - job_name: 'ubuntu-node'
     static_configs:
-      - targets: ['<UBUNTU_IP>:9100']
+      - targets: ['<UBUNTU_IP>:9100'] # Node exporter on Ubuntu
         labels:
           instance: 'ubuntu-server'
   - job_name: 'ubuntu-cadvisor'
     static_configs:
-      - targets: ['<UBUNTU_IP>:8081']
+      - targets: ['<UBUNTU_IP>:8081'] # cAdvisor on Ubuntu
 
   # --- Raspberry Pi Metrics ---
   - job_name: 'rpi-node'
     static_configs:
-      - targets: ['<RPI_IP>:9100']
+      - targets: ['<RPI_IP>:9100'] # Node exporter on Raspberry Pi
         labels:
           instance: 'raspberry-pi-5'
 
-  # --- TrueNAS Metrics ---
-  - job_name: 'truenas-node'
+  # --- LinuxMint Metrics ---
+  - job_name: 'lm-node'
     static_configs:
-      - targets: ['<TRUENAS_IP>:9100']
+      - targets: ['<LINUX_MINT_IP>:9100'] # Node exporter on 'linux-mint'
         labels:
-          instance: 'truenas'
+          instance: 'linux-mint'
+
+  # --- TrueNAS Metrics ---
+  - job_name: 'tn-node'
+    static_configs:
+      - targets: ['<TRUENAS_IP>:9100'] # Node exporter on RPi
+        labels:
+          instance: 'truenas-scale'
