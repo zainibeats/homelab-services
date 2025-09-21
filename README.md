@@ -7,7 +7,7 @@ This repository contains Docker Compose configurations for various self-hosted s
 | Device | Purpose | OS | Key Services |
 |--------|---------|----|--------------|
 | **TrueNAS Server** | Centralized storage and backups | TrueNAS Scale | ZFS storage, SMB/NFS shares |
-| **Ubuntu Server** | Primary application hosting | Ubuntu Server 22.04 LTS | Docker containers, application services |
+| **Ubuntu Server** | Primary application hosting | Ubuntu Server 22.04 LTS | Docker containers, application services, Jellyfin (bare metal) |
 | **Raspberry Pi** | Network and home automation | Raspberry Pi OS Lite | Pi-Hole, Home Assistant, WG-Easy, [Taskwise](https://github.com/zainibeats/taskwise) |
 | **Debian Server** | Network services and monitoring | Debian 12 (headless) | Nginx Proxy Manager, DDClient, Grafana, Prometheus |
 
