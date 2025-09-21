@@ -15,8 +15,9 @@ This repository contains Docker Compose configurations for various self-hosted s
 
 Below is a list of services configured in this repository. Each directory contains the `docker-compose.yml` file and a specific `README.md` with setup instructions.
 
-- **Arr Stack** ([docs](./arr-stack/README.md)): A collection of services for media management including Sonarr, Radarr, Lidarr, and more. Uses NFS for media storage with a unified `/data` directory structure.
+- **Arr Stack** ([docs](./arr-stack/README.md)): A collection of services for media management including Sonarr, Radarr, Bazarr, Prowlarr, NZBGet, qBittorrent, and Homarr dashboard. All download traffic is routed through a VPN (Gluetun) with NFS/SMB for media storage.
 - **ConvertX** ([docs](./convertx/README.md)): Simple file conversion service with a web interface.
+- **Guacamole** ([docs](./guacamole/README.md)): Clientless remote desktop gateway supporting VNC, RDP, and SSH protocols with web-based access.
 - **Home Assistant** ([docs](./home-assistant/README.md)): Home automation platform.
 - **Immich** ([docs](./immich/README.md)): Self-hosted photo and video management platform.
 - **Jellyseerr** ([docs](./jellyseerr/README.md)): A request management and media discovery tool for the Jellyfin/Emby ecosystem.
@@ -26,6 +27,7 @@ Below is a list of services configured in this repository. Each directory contai
 - **Open Source Monitoring** ([docs](./opensource-monitoring/README.md)): Monitoring stack including Prometheus, Grafana, Node Exporter, and cAdvisor.
 - **Syncthing** ([docs](./syncthing/README.md)): Continuous file synchronization program that synchronizes files between two or more computers in real time.
 - **Vaultwarden** ([docs](./vaultwarden/README.md)): Self-hosted password manager. Compatible with the official [Bitwarden](https://bitwarden.com/) app.
+- **Watchtower** ([docs](./watchtower/README.md)): Automatic Docker container update service that monitors and updates running containers on a scheduled basis.
 - **WG-Easy** ([docs](./wg-easy/README.md)): Easy-to-use Wireguard VPN with a web interface for remote access to the homelab.
 
 ## Storage Configuration
@@ -60,6 +62,26 @@ This homelab is designed with network storage in mind:
   - Services can be configured to use local storage if NFS is not available
   - See individual service READMEs for configuration details
 
+## Docker Image Management - Portainer
+
+**Portainer** provides a web-based interface for managing Docker containers, images, networks, and volumes. It offers an intuitive GUI for Docker management tasks that would otherwise require command-line operations.
+
+### Setup
+
+1. Create a Docker volume for Portainer's database:
+   ```bash
+   docker volume create portainer_data
+   ```
+
+2. Run the Portainer container:
+   ```bash
+   docker run -d -p 8000:8000 -p 9443:9443 --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:lts
+   ```
+
+### Access
+
+- **Web Interface**: `https://<IP_ADDRESS>:9443`
+
 ## Prerequisites
 
 -   Docker
@@ -67,7 +89,13 @@ This homelab is designed with network storage in mind:
 
 ## Automatic Updates (Optional)
 
-To automatically update your running Docker containers to the latest image, consider using [Watchtower](https://containrrr.dev/watchtower/).
+For automatic Docker container updates, this repository includes a dedicated **Watchtower** service ([docs](./watchtower/README.md)) that monitors running containers and automatically pulls new images and restarts containers when updates are available.
+
+The Watchtower service can be deployed in two ways:
+- **Docker Compose**: Use the included docker-compose configuration for centralized management
+- **Docker Run**: Run directly on each machine using the `docker run` command
+
+The Watchtower service is configured to run daily at 5:00 AM to minimize disruption during peak usage hours. See the [Watchtower documentation](./watchtower/README.md) for configuration details and usage instructions.
 
 A basic Watchtower container might look like this:
 
