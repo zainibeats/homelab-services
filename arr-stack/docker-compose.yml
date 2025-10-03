@@ -23,13 +23,8 @@ services:
       # - 3001:3001 # firefox
     volumes:
       - ./gluetun:/gluetun
-    environment:
-      - VPN_SERVICE_PROVIDER=protonvpn    # Supported providers: ProtonVPN, Mullvad, etc.
-      - VPN_TYPE=wireguard                # Choose 'wireguard' or 'openvpn'
-      - HEALTH_VPN_DURATION_INITIAL=120s  # Delay before initial health check
-      - WIREGUARD_PUBLIC_KEY=<PUBLIC_KEY>  # Replace with your WireGuard public key
-      - WIREGUARD_PRIVATE_KEY=<PRIVATE_KEY> # Replace with your WireGuard private key
-      - SERVER_COUNTRIES=<COUNTRY>         # Comma-separated list of server countries (e.g., Sweden)
+    env_file:
+      - .env
     healthcheck:
       test: ping -c 1 www.mullvad.net || exit 1
       interval: 20s
@@ -46,7 +41,7 @@ services:
     environment:
       - PUID=1010                            # Adjust to match host user ID
       - PGID=1010                            # Adjust to match host group ID
-      - TZ=<YOUR_TIME_ZONE>		   # Set your local timezone (e.g., America/Los_Angeles)
+      - TZ=${TZ}
       - WEBUI_PORT=8123                      # Internal web UI port
     volumes:
       - ./qbittorrent:/config                # Holds settings and torrent data
@@ -72,7 +67,7 @@ services:
     environment:
       - LOG_LEVEL=info                      # 'debug' for verbose logs
       - HEALTH_SERVER_ADDRESS=127.0.0.1:9999 # Endpoint where deunhealth listens
-      - TZ=<YOUR_TIME_ZONE>		     # Set your local timezone (e.g., America/Los_Angeles)
+      - TZ=${TZ}
     restart: always
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -83,7 +78,7 @@ services:
     environment:
       - PUID=1010
       - PGID=1010
-      - TZ=<YOUR_TIME_ZONE>		   # Set your local timezone (e.g., America/Los_Angeles)
+      - TZ=${TZ}
       - NZBGET_USER=<USERNAME>             # Web UI login username
       - NZBGET_PASS=<PASSWORD>             # Web UI login password
     volumes:
@@ -103,7 +98,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=<YOUR_TIME_ZONE>		   # Set your local timezone (e.g., America/Los_Angeles)
+      - TZ=${TZ}
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./prowlarr:/config
@@ -121,7 +116,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=<YOUR_TIME_ZONE>		   # Set your local timezone (e.g., America/Los_Angeles)
+      - TZ=${TZ}
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./sonarr:/config                   # Sonarr database and settings
@@ -140,7 +135,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=<YOUR_TIME_ZONE>		   # Set your local timezone (e.g., America/Los_Angeles)
+      - TZ=${TZ}
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./radarr:/config                   # Radarr database and settings
@@ -159,7 +154,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=<YOUR_TIME_ZONE>		  # Set your local timezone (e.g., America/Los_Angeles)
+      - TZ=${TZ}
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./bazarr:/config                  # Bazarr settings and subtitle data
@@ -185,6 +180,22 @@ services:
       servarrnetwork:
         ipv4_address: 172.69.0.7
 
+  jellyseerr:
+    container_name: jellyseerr
+    image: fallenbagel/jellyseerr:latest
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+    volumes:
+      - /srv/appdata/jellyseerr:/app/config
+    ports:
+      - 5055:5055
+    networks:
+      servarrnetwork:
+        ipv4_address: 172.69.0.8
+    restart: unless-stopped
+
   # lidarr:
     # container_name: lidarr
     # image: lscr.io/linuxserver/lidarr:latest
@@ -196,7 +207,7 @@ services:
     # environment:
      # - PUID=1000
      # - PGID=1000
-     # - TZ=<YOUR_TIME_ZONE>		  # Set your local timezone (e.g., America/Los_Angeles)
+     # - TZ=${TZ}
     # ports:
       # - 8686:8686
     # networks:
@@ -210,7 +221,7 @@ services:
     # environment:
       # - PUID=1000
       # - PGID=1000
-      # - TZ=<YOUR_TIME_ZONE>		  # Set your local timezone (e.g., America/Los_Angeles)
+      # - TZ=${TZ}
     # volumes:
       # - ./readarr:/config
       # - /mnt/WD-ExtHDD/Jellyfin:/data
@@ -232,7 +243,7 @@ services:
     # environment:
       # - PUID=1000
       # - PGID=1000
-      # - TZ=<YOUR_TIME_ZONE>		  # Set your local timezone (e.g., America/Los_Angeles)
+      # - TZ=${TZ}
     # volumes:
       # - ./firefox:/config
     # shm_size: "1gb"

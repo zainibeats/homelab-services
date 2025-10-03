@@ -10,7 +10,7 @@ The "Arr Stack" is a collection of services for managing and automating media do
 - **Download Clients**: qBittorrent (torrents) and NZBGet (Usenet)
 - **Media Management**: Sonarr, Radarr, Lidarr, and Bazarr
 - **Indexer Management**: Prowlarr
-- **Additional Tools**: Firefox browser and Homarr dashboard
+- **Additional Tools**: Firefox browser, Homarr dashboard, and Jellyseerr
 
 ## Components
 
@@ -26,6 +26,7 @@ The "Arr Stack" is a collection of services for managing and automating media do
 | Bazarr | Subtitle management | 6767 |
 | Firefox | Browser with VPN protection | 3001 |
 | Homarr | Service dashboard | 7575 |
+| Jellyseerr | Media Requesting | 5055 |
 | Deunhealth | Container health monitor | N/A |
 
 ## Network Architecture
@@ -92,16 +93,16 @@ sudo chown -R 1000:1000 /mnt/nfs/jellyfin
 
 ### 2. Configure VPN Settings
 
-Edit the `docker-compose.yml` file and update the Gluetun VPN settings:
+Edit the `.env` file and update the Gluetun VPN settings:
 
-```yaml
-environment:
-  - VPN_SERVICE_PROVIDER=protonvpn    # Change to your VPN provider
-  - VPN_TYPE=wireguard                # Choose 'wireguard' or 'openvpn'
-  - WIREGUARD_PUBLIC_KEY=<PUBLIC_KEY>  # Replace with your WireGuard public key
-  - WIREGUARD_PRIVATE_KEY=<PRIVATE_KEY> # Replace with your WireGuard private key
-  - SERVER_COUNTRIES=<COUNTRY>         # Comma-separated list of server countries
-  - TZ=<YOUR_TIME_ZONE>                # Set your local timezone
+```bash
+# In arr-stack/.env
+VPN_SERVICE_PROVIDER=protonvpn    # Change to your VPN provider
+VPN_TYPE=wireguard                # Choose 'wireguard' or 'openvpn'
+WIREGUARD_PUBLIC_KEY=<PUBLIC_KEY>  # Replace with your WireGuard public key
+WIREGUARD_PRIVATE_KEY=<PRIVATE_KEY> # Replace with your WireGuard private key
+SERVER_COUNTRIES=<COUNTRY>         # Comma-separated list of server countries
+TZ=<YOUR_TIME_ZONE>                # Set your local timezone
 ```
 
 ### 3. Set User Permissions
@@ -167,6 +168,9 @@ docker compose up -d
 - Access at port 7575
 - Add your services to the dashboard
 
+### Jellyseerr
+- Connect to Sonarr and Radarr for automatic scanning/downloading upon approval
+
 ## Troubleshooting
 
 ### Testing VPN Connectivity
@@ -200,6 +204,6 @@ All service configurations are stored in the respective subdirectories (./sonarr
 
 ## Security Considerations
 
-- Replace all placeholder values (`<YOUR_TIME_ZONE>`, `<USERNAME>`, `<PASSWORD>`, etc.) with your actual information
+- Replace all placeholder values (`<USERNAME>`, `<PASSWORD>`, etc.) with your actual information
 - Generate a secure encryption key for Homarr using `openssl rand -hex 32`
 - Consider changing default ports for additional security
