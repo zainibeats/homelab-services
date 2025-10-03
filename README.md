@@ -15,7 +15,7 @@ This repository contains Docker Compose configurations for various self-hosted s
 
 Below is a list of services configured in this repository. Each directory contains the `docker-compose.yml` file and a specific `README.md` with setup instructions.
 
-- **Arr Stack** ([docs](./arr-stack/README.md)): A collection of services for media management including Sonarr, Radarr, Bazarr, Prowlarr, NZBGet, qBittorrent, and Homarr dashboard. All download traffic is routed through a VPN (Gluetun) with NFS/SMB for media storage.
+- **Arr Stack** ([docs](./arr-stack/README.md)): A collection of services for media management including Sonarr, Radarr, Bazarr, Prowlarr, NZBGet, qBittorrent, Jellyseerr, and Homarr dashboard. All download traffic is routed through a VPN (Gluetun) with NFS/SMB for media storage.
 - **ConvertX** ([docs](./convertx/README.md)): Simple file conversion service with a web interface.
 - **Guacamole** ([docs](./guacamole/README.md)): Clientless remote desktop gateway supporting VNC, RDP, and SSH protocols with web-based access.
 - **Home Assistant** ([docs](./home-assistant/README.md)): Home automation platform.
