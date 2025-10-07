@@ -7,7 +7,7 @@ This repository contains Docker Compose configurations for various self-hosted s
 | Device | Purpose | OS | Key Services |
 |--------|---------|----|--------------|
 | **TrueNAS Server** | Centralized storage and backups | TrueNAS Scale | ZFS storage, SMB/NFS shares |
-| **Ubuntu Server** | Primary application hosting | Ubuntu Server 22.04 LTS | Docker containers, application services, Jellyfin (bare metal) |
+| **Ubuntu Server** | Primary application hosting | Ubuntu Server 22.04 LTS | Docker containers, application services |
 | **Raspberry Pi** | Network and home automation | Raspberry Pi OS Lite | Pi-Hole, Home Assistant, WG-Easy, [Taskwise](https://github.com/zainibeats/taskwise) |
 | **Debian Server** | Network services and monitoring | Debian 12 (headless) | Nginx Proxy Manager, DDClient, Grafana, Prometheus |
 
@@ -15,20 +15,21 @@ This repository contains Docker Compose configurations for various self-hosted s
 
 Below is a list of services configured in this repository. Each directory contains the `docker-compose.yml` file and a specific `README.md` with setup instructions.
 
-- **Arr Stack** ([docs](./arr-stack/README.md)): A collection of services for media management including Sonarr, Radarr, Bazarr, Prowlarr, NZBGet, qBittorrent, Jellyseerr, and Homarr dashboard. All download traffic is routed through a VPN (Gluetun) with NFS/SMB for media storage.
-- **ConvertX** ([docs](./convertx/README.md)): Simple file conversion service with a web interface.
-- **Guacamole** ([docs](./guacamole/README.md)): Clientless remote desktop gateway supporting VNC, RDP, and SSH protocols with web-based access.
-- **Home Assistant** ([docs](./home-assistant/README.md)): Home automation platform.
-- **Immich** ([docs](./immich/README.md)): Self-hosted photo and video management platform.
-- **Jellyseerr** ([docs](./jellyseerr/README.md)): A request management and media discovery tool for the Jellyfin/Emby ecosystem.
-- **Nextcloud** ([docs](./nextcloud/README.md)): Self-hosted file sync and share platform with NFS storage integration.
-- **Nginx Proxy Manager + DDClient** ([docs](./nginx-ddclient/README.md)): Easy-to-use Nginx proxy manager with dynamic DNS updating via DDClient.
-- **Ollama + Open WebUI** ([docs](./ollama-openwebui/README.md)): Run large language models locally with Ollama and interact with them through Open WebUI.
-- **Open Source Monitoring** ([docs](./opensource-monitoring/README.md)): Monitoring stack including Prometheus, Grafana, Node Exporter, and cAdvisor.
-- **Syncthing** ([docs](./syncthing/README.md)): Continuous file synchronization program that synchronizes files between two or more computers in real time.
-- **Vaultwarden** ([docs](./vaultwarden/README.md)): Self-hosted password manager. Compatible with the official [Bitwarden](https://bitwarden.com/) app.
-- **Watchtower** ([docs](./watchtower/README.md)): Automatic Docker container update service that monitors and updates running containers on a scheduled basis.
-- **WG-Easy** ([docs](./wg-easy/README.md)): Easy-to-use Wireguard VPN with a web interface for remote access to the homelab.
+- **Arr Stack** ([docs](./arr-stack/README.md)): A collection of services for media management including Sonarr, Radarr, Bazarr, Prowlarr, NZBGet, qBittorrent, Jellyseerr, and Homarr dashboard. All download traffic is routed through a VPN (Gluetun) with NFS/SMB for media storage
+- **ConvertX** ([docs](./convertx/README.md)): Simple file conversion service with a web interface
+- **Guacamole** ([docs](./guacamole/README.md)): Clientless remote desktop gateway supporting VNC, RDP, and SSH protocols with web-based access
+- **Home Assistant** ([docs](./home-assistant/README.md)): Home automation platform
+- **Immich** ([docs](./immich/README.md)): Self-hosted photo and video management platform
+- **Jellyfin** ([docs](./jellyfin/README.md)): Self-hosted media server
+- **Jellyseerr** ([docs](./jellyseerr/README.md)): A request management and media discovery tool for the Jellyfin/Emby ecosystem
+- **Nextcloud** ([docs](./nextcloud/README.md)): Self-hosted file sync and share platform with NFS storage integration
+- **Nginx Proxy Manager + DDClient** ([docs](./nginx-ddclient/README.md)): Easy-to-use Nginx proxy manager with dynamic DNS updating via DDClient
+- **Ollama + Open WebUI** ([docs](./ollama-openwebui/README.md)): Run large language models locally with Ollama and interact with them through Open WebUI
+- **Open Source Monitoring** ([docs](./opensource-monitoring/README.md)): Monitoring stack including Prometheus, Grafana, Node Exporter, and cAdvisor
+- **Syncthing** ([docs](./syncthing/README.md)): Continuous file synchronization program that synchronizes files between two or more computers in real time
+- **Vaultwarden** ([docs](./vaultwarden/README.md)): Self-hosted password manager. Compatible with the official [Bitwarden](https://bitwarden.com/) app
+- **Watchtower** ([docs](./watchtower/README.md)): Automatic Docker container update service that monitors and updates running containers on a scheduled basis
+- **WG-Easy** ([docs](./wg-easy/README.md)): Easy-to-use Wireguard VPN with a web interface for remote access to the homelab
 
 ## Storage Configuration
 
