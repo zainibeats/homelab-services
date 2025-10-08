@@ -28,7 +28,7 @@ Below is a list of all services configured in this repository, organized by cate
 - **Nginx Proxy Manager + DDClient** ([docs](./infrastructure/nginx-ddclient/README.md)): Reverse proxy management with SSL/TLS certificates and dynamic DNS updates for Cloudflare
 - **Guacamole** ([docs](./infrastructure/guacamole/README.md)): Clientless remote desktop gateway supporting VNC, RDP, and SSH protocols with web-based access
 - **WG-Easy** ([docs](./infrastructure/wg-easy/README.md)): Easy-to-use Wireguard VPN with a web interface for secure remote access to the homelab
-- **Open Source Monitoring** ([docs](./infrastructure/opensource-monitoring/README.md)): Monitoring stack including Prometheus, Grafana, Node Exporter, and cAdvisor
+- **Monitoring** ([docs](./infrastructure/monitoring/README.md)): Monitoring stack including Prometheus, Grafana, Node Exporter, and cAdvisor
 
 ### Media ([docs](./media/README.md))
 - **Arr Stack** ([docs](./media/arr-stack/README.md)): Complete media automation suite including Sonarr, Radarr, Lidarr, Bazarr, Prowlarr, NZBGet, qBittorrent, Jellyseerr, and Homarr dashboard. All download traffic is routed through a VPN (Gluetun) with NFS/SMB for media storage

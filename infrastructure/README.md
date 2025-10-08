@@ -12,4 +12,4 @@ This directory contains infrastructure services that handle networking, remote a
 - **[WG-Easy](./wg-easy/README.md)** - Easy-to-use Wireguard VPN with a web interface for secure remote access to the homelab
 
 ### Monitoring
-- **[Open Source Monitoring](./opensource-monitoring/README.md)** - Complete monitoring stack including Prometheus, Grafana, Node Exporter, and cAdvisor for system and container monitoring
+- **[Monitoring](./monitoring/README.md)** - Complete monitoring stack including Prometheus, Grafana, Node Exporter, and cAdvisor for system and container monitoring

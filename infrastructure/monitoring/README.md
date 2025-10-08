@@ -1,4 +1,4 @@
-# Open Source Monitoring Stack
+# Monitoring Stack
 
 This setup is based on the configuration provided by [brandonleegit/OpenSourceMonitoring](https://github.com/brandonleegit/OpenSourceMonitoring).
 
@@ -19,7 +19,7 @@ This directory contains a Docker Compose setup for a basic monitoring stack usin
     touch ~/promgrafnode/prometheus/prometheus.yml
     ```
 2.  **Prometheus Configuration**: The Prometheus service mounts a configuration file from `~/promgrafnode/prometheus/prometheus.yml` on the host.
-    *   A basic `prometheus.yml` is provided in *this* directory (`opensource-monitoring/prometheus.yml`). You need to **copy** the contents of this file (or the file itself) to `~/promgrafnode/prometheus/prometheus.yml` on your host machine, replacing the empty file created by the `touch` command above. Adjust the configuration if needed.
+    *   A basic `prometheus.yml` is provided in *this* directory (`monitoring/prometheus.yml`). You need to **copy** the contents of this file (or the file itself) to `~/promgrafnode/prometheus/prometheus.yml` on your host machine, replacing the empty file created by the `touch` command above. Adjust the configuration if needed.
 3.  **Grafana Configuration & Data**: Grafana mounts volumes for its data (`~/promgrafnode/grafana`) and provisioning (`~/promgrafnode/grafana/provisioning/datasources`). The necessary directories should have been created in step 1.
     *   You can place datasource configuration files (e.g., to automatically add the Prometheus datasource) in the `~/promgrafnode/grafana/provisioning/datasources` directory.
 4.  **Permissions (PUID/PGID)**: The `prometheus` and `grafana` services are configured to run with user/group ID `1002`. Ensure the host directories (`~/promgrafnode/*`) have appropriate permissions for this user/group, or update the `user` directive in the `docker-compose.yml` to match a user/group that owns the directories.
@@ -60,9 +60,9 @@ services:
       - monitoring
 ```
 
-3.  Navigate to the `opensource-monitoring` directory:
+3.  Navigate to the `monitoring` directory:
     ```bash
-    cd opensource-monitoring
+    cd monitoring
     ```
 4.  Start the services using Docker Compose:
     ```bash
