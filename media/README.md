@@ -31,16 +31,3 @@ Media services are designed to work with network storage (NFS/SMB) for efficient
 
 ### VPN Protection
 All download traffic in the Arr Stack is routed through a VPN using Gluetun to ensure privacy and security.
-
-### Media Workflow
-1. **Request**: Users request content via Jellyseerr
-2. **Search**: Sonarr/Radarr search for content via Prowlarr indexers
-3. **Download**: Content is downloaded via qBittorrent or NZBGet through VPN
-4. **Process**: Media is automatically renamed, organized, and moved to appropriate folders
-5. **Subtitles**: Bazarr automatically downloads subtitles
-6. **Stream**: Content becomes available in Jellyfin for streaming
-
-### Integration
-- Jellyseerr integrates with Sonarr/Radarr for automated content requests
-- Jellyfin scans the media library for new content
-- All services communicate via Docker networking for seamless automation
